@@ -15,7 +15,9 @@
             ErrorMessage = errorMessage;
         }
 
-        public static Result<T> Success(T value) => new(true, value, null);
+        public static Result<T> Success(T value) => value is not null
+            ? new Result<T>(true, value, null)
+            : throw new ArgumentNullException(nameof(value), "Value cannot be null.");
 
         public static Result<T> Failure(string ErrorMessage) => new(false, default, ErrorMessage);
     }

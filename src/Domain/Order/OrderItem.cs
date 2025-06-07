@@ -2,31 +2,37 @@
 {
     public record OrderItem
     {
+        public Guid Id { get; }
         public Guid ProductId { get; }
         public int Quantity { get; }
         public decimal Price { get; }
         public decimal Total => Price * Quantity;
 
-        private OrderItem(int quantity, decimal price)
+        private OrderItem(Guid productId, int quantity, decimal price)
         {
-            ProductId = Guid.NewGuid();
+            Id = Guid.NewGuid();
+            ProductId = productId;
             Quantity = quantity;
             Price = price;
         }
 
-        public static Result Create(int quantity, decimal price)
+        public static Result<OrderItem> Create(Guid productId, int quantity, decimal price)
         {
+            if (productId == Guid.Empty)
+            {
+                return Result<OrderItem>.Failure("ProductId not valid");
+            }
             if (quantity <= 0)
             {
-                return Result.Failure("Quantity must be greater than zero.");
+                return Result<OrderItem>.Failure("Quantity must be greater than zero.");
             }
 
             if (price <= 0)
             {
-                return Result.Failure("Price must be greater than zero.");
+                return Result<OrderItem>.Failure("Price must be greater than zero.");
             }
 
-            return Result.Success(new OrderItem(quantity, price));
+            return Result<OrderItem>.Success(new OrderItem(productId, quantity, price));
         }
 
 
