@@ -22,10 +22,8 @@ public class CreateOrderHandler(IOrderRepository orderRepository, IUnitOfWork un
             }
             else
             {
-
                 throw new Exception(result.ErrorMessage);
             }
-
 
         }
         _orderRepository.Add(order);
