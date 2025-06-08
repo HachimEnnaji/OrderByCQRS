@@ -12,12 +12,3 @@ public class OrderRepository(AppDbContext context) : IOrderRepository
         _context.Orders.Add(order);
     }
 }
-
-public class IUniOfWork(AppDbContext context) : IUnitOfWork
-{
-    private readonly AppDbContext _context = context;
-    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
-    {
-        await _context.SaveChangesAsync(cancellationToken);
-    }
-}
