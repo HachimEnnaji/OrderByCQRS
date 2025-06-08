@@ -18,7 +18,7 @@ namespace API
                 return BadRequest("Order must have at least one order");
             }
 
-            var id = _handler.Handle(cmd);
+            var id = await _handler.Handle(cmd);
 
             return CreatedAtAction(nameof(Create), new { id }, null);
         }

@@ -1,4 +1,3 @@
-using Application;
 using Application.Commands;
 using Application.Contracts.Persistence;
 using Infrastructure;
@@ -8,8 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 //EF registration in memory DB
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseInMemoryDatabase("OrdersDb"));
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseInMemoryDatabase("OrdersDb"));
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
